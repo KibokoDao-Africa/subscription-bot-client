@@ -1,7 +1,15 @@
-// import React, { useState } from "react";
+import  { useState } from "react";
 import { ChatInterface } from "../components/Chat/ChatInterface";
+
+interface Message {
+  id: number;
+  text: string;
+  isBot: boolean;
+  action?: JSX.Element; // Optional action property
+}
+
 export const Subscriptions = () => {
-  const initialMessage = {
+  const initialMessage: Message = {
     id: 1,
     text: "Here are your active subscriptions. What would you like to do?",
     isBot: true,
@@ -16,9 +24,11 @@ export const Subscriptions = () => {
       </div>
     ),
   };
-  const [messages, setMessages] = useState([initialMessage]);
+
+  const [messages, setMessages] = useState<Message[]>([initialMessage]);
+
   const handleMessage = (message: string) => {
-    setMessages((prev) => [
+    setMessages((prev: Message[]) => [
       ...prev,
       {
         id: Date.now(),
@@ -27,11 +37,13 @@ export const Subscriptions = () => {
       },
     ]);
   };
+
   const handleClearChat = () => {
     setMessages([initialMessage]);
   };
+
   const handleBackToMenu = () => {
-    setMessages((prev) => [
+    setMessages((prev: Message[]) => [
       ...prev,
       {
         id: Date.now(),
@@ -41,6 +53,7 @@ export const Subscriptions = () => {
       initialMessage,
     ]);
   };
+
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">

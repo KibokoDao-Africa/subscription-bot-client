@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Send, Trash2, Home } from "lucide-react";
+
 interface Message {
   id: number;
   text: string;

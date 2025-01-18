@@ -12,6 +12,7 @@ const mockConnect = async (options?: { modalMode?: string }) => {
     },
   };
 };
+
 const mockDisconnect = async () => {
   return true;
 };

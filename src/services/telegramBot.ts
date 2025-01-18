@@ -112,7 +112,7 @@ export class TelegramBotService {
     ];
   }
 
-  private async getUserSubscriptions(userId: number): Promise<Subscription[]> {
+  private async getUserSubscriptions(_userId: number): Promise<Subscription[]> {
     // Simulated database query or API call
     return [
       { id: '1', channelName: 'Tech News Daily', endDate: '2024-02-01' },
@@ -160,7 +160,7 @@ export class TelegramBotService {
     }
   }
 
-  private async checkSubscription(chatId: number): Promise<boolean> {
+  private async checkSubscription(_chatId: number): Promise<boolean> {
     // Simulated subscription check
     return true;
   }
