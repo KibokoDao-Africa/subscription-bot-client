@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, disconnect } from "starknetkit";
+// import { connect, disconnect } from "starknetkit";
 interface WalletConnectProps {
   onConnect: (connection: any) => void;
   buttonClassName?: string;

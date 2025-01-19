@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { ChatInterface } from "./Chat/ChatInterface";
-import { Plus, Settings, Trash, Eye, ArrowRight } from "lucide-react";
-import { WalletConnect } from "./WalletConnect";
-import { SubscriptionPayment } from "./SubscriptionPayment";
+import { Plus } from "lucide-react";
 
 interface Message {
   id: number;
@@ -67,7 +65,15 @@ export const ChatBot = () => {
 
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [currentFlow, setCurrentFlow] = useState<string | null>(null);
-  const [channels, setChannels] = useState<Channel[]>([]);
+  const [channels, setChannels] = useState<Channel[]>([
+    {
+      id: "1",
+      name: "Tech News Daily",
+      url: "https://t.me/technews",
+      subscribers: 150,
+      packages: [],
+    },
+  ]);
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [editingChannel, setEditingChannel] = useState<Channel | null>(null);
   const [walletConnection, setWalletConnection] = useState<any>(null);
@@ -111,7 +117,7 @@ export const ChatBot = () => {
             <div className="space-y-3">
               {channels.map((channel) => (
                 <div key={channel.id} className="p-3 bg-[#1f2f3f] rounded-lg">
-                  <p>{channel.name}</p>
+                  <p className="text-white">{channel.name}</p>
                 </div>
               ))}
               <button
@@ -133,6 +139,17 @@ export const ChatBot = () => {
           isBot: true,
         },
       ]);
+    } else if (action === "delete" && channelId) {
+      setChannels((prev) => prev.filter((channel) => channel.id !== channelId));
+      setMessages((prev: Message[]) => [
+        ...prev,
+        {
+          id: Date.now(),
+          text: "✅ Channel deleted successfully!",
+          isBot: true,
+        },
+      ]);
+      handleChannelAction("list");
     }
   };
 
@@ -144,6 +161,15 @@ export const ChatBot = () => {
           id: Date.now(),
           text: "Your Subscriptions",
           isBot: true,
+          action: (
+            <div className="space-y-3">
+              {subscriptions.map((sub) => (
+                <div key={sub.id} className="p-3 bg-[#1f2f3f] rounded-lg">
+                  <p className="text-white">Subscription: {sub.channelId}</p>
+                </div>
+              ))}
+            </div>
+          ),
         },
       ]);
     }
@@ -156,6 +182,11 @@ export const ChatBot = () => {
         id: Date.now(),
         text: "Available Commands",
         isBot: true,
+        action: (
+          <div>
+            <p>Use /start to begin</p>
+          </div>
+        ),
       },
     ]);
   };

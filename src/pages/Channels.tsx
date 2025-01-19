@@ -25,7 +25,7 @@ export const Channels = () => {
     ),
   };
 
-  const [channels, setChannels] = useState<any[]>([]);
+  const [_channels, _setChannels] = useState<any[]>([]);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
 
   const handleCreateChannel = () => {
